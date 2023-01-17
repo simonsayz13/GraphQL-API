@@ -1,5 +1,6 @@
 // const Exercise = require("../../mongodb_models/ExerciseModel")
 const StoreExercise = require("../../mongodb_models/SavedExerciseModel")
+
 module.exports = {
 
   getExercises: async () => {
@@ -17,20 +18,20 @@ module.exports = {
     }
   },
 
-  createExercise: async (args) => {
-    try {
-      const { id, name, description, muscleGroup, imageURL } = args.Exercise
-      const exercise = new Exercise({
-        id,
-        name,
-        description,
-        muscleGroup,
-        imageURL
-      })
-      const newExercise = await exercise.save()
-      return { ...newExercise._doc, _id: newExercise.id }
-    } catch (error) {
-      throw error
-    }
-  }
+  // createExercise: async (args) => {
+  //   try {
+  //     const { id, name, description, muscleGroup, imageURL } = args.Exercise
+  //     const exercise = new Exercise({
+  //       id,
+  //       name,
+  //       description,
+  //       muscleGroup,
+  //       imageURL
+  //     })
+  //     const newExercise = await exercise.save()
+  //     return { ...newExercise._doc, _id: newExercise.id }
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
 }

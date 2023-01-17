@@ -1,5 +1,5 @@
 // const Workout = require("../../mongodb_models/workoutModel")
-const Exercise = require("../../mongodb_models/ExerciseModel")
+const Exercise = require("../../../mongodb_models/ExerciseModel")
 
 module.exports = {
 
