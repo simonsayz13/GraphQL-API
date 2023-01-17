@@ -1,11 +1,10 @@
-// const Workout = require("../../mongodb_models/workoutModel")
-const Exercise = require("../../mongodb_models/ExerciseModel")
-
+// const Exercise = require("../../mongodb_models/ExerciseModel")
+const StoreExercise = require("../../mongodb_models/SavedExerciseModel")
 module.exports = {
 
   getExercises: async () => {
     try {
-      const exercisesFetched = await Exercise.find()
+      const exercisesFetched = await StoreExercise.find()
       console.log(exercisesFetched)
       return exercisesFetched.map(exercise => {
         return {
@@ -17,6 +16,7 @@ module.exports = {
       throw error
     }
   },
+
   createExercise: async (args) => {
     try {
       const { id, name, description, muscleGroup, imageURL } = args.Exercise
