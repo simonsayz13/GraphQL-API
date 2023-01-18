@@ -1,12 +1,12 @@
 const express = require("express")
 const { graphqlHTTP } = require("express-graphql")
 const exerciseSchema = require("../graphql_schema/exercise")
-const gqlResolver = require("./graphql_resolvers")
+const gqlResolver = require("../graphql_resolvers/")
 const mongoose = require("mongoose")
 
 const app = express()
 
-// export mongodbURI="mongodb+srv://admin:Changeme_123@db1.5y8jmgl.mongodb.net/fitness?retryWrites=true&w=majority"
+// export mongodbURI='mongodb+srv://admin:Changeme_123@db1.5y8jmgl.mongodb.net/fitness?retryWrites=true&w=majority'
 
 const uri = process.env.mongodbURI
 

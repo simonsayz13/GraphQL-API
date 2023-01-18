@@ -1,6 +1,6 @@
 // const Workout = require("../../mongodb_models/workoutModel")
-const Exercise = require("../../mongodb_models/ExerciseModel")
-const StoreExerciseModel = require("../../mongodb_models/SavedExerciseModel")
+const Exercise = require("../mongodb_models/ExerciseModel")
+const StoreExerciseModel = require("../mongodb_models/SavedExerciseModel")
 
 module.exports = {
   getExercises: async () => {
