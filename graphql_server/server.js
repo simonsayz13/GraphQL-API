@@ -1,9 +1,7 @@
 const express = require("express")
 const { graphqlHTTP } = require("express-graphql")
 const exerciseSchema = require("../graphql_schema/exercise")
-const savedExerciseSchema = require("../graphql_schema/store_exercise")
-const exerciseResolver = require("./graphql_resolvers/ExerciseResolver")
-const storeExerciseResolver = require("./graphql_resolvers/storeExerciseResolver")
+const gqlResolver = require("./graphql_resolvers")
 const mongoose = require("mongoose")
 
 const app = express()
@@ -16,16 +14,9 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema: exerciseSchema,
-    rootValue: exerciseResolver,
+    rootValue: gqlResolver,
     graphiql: true,
-  })
-)
-
-app.use("/graphql",
-  graphqlHTTP({
-    schema: savedExerciseSchema,
-    rootValue: storeExerciseResolver,
-    graphiql: true
+    pretty: true
   })
 )
 
@@ -33,8 +24,8 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true }
 
 mongoose.set('strictQuery', false)
 
-mongoose.connect(uri, options).then(() => app.listen(8080, console.log("Server is running on localhost:8080")))
-  .catch((error: Error) => {
+mongoose.connect(uri, options).then(() => app.listen(8080, console.log("GraphQL API Server is running on localhost:8080")))
+  .catch((error) => {
     throw error
   }
 )

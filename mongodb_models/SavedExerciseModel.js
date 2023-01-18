@@ -1,13 +1,13 @@
 const mongoose = require("mongoose")
-
 const Schema = mongoose.Schema
 
-const SavedExerciseSchema = new Schema(
+const StoreExerciseSchema = new Schema(
   {
     uid: {
       type: String,
+      required: true
     },
-    savedExercise: {
+    storedExercise: {
       id: {
         type: String,
         required: true,
@@ -32,4 +32,4 @@ const SavedExerciseSchema = new Schema(
   }
 )
 
-module.exports = mongoose.model("SavedExercise", SavedExerciseSchema)
+module.exports = mongoose.model("StoredExercise", StoreExerciseSchema)

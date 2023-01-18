@@ -17,13 +17,30 @@ module.exports = buildSchema(`
     muscleGroup: String!
     imageURL: String!
   }
+  
+  input getExerciseInput {
+    uid: String!
+  }
+
+  type ExerciseStore {
+    _id: ID!
+    uid: String!
+    storedExercise: Exercise!
+  }  
+
+  input StoreExerciseInput {
+    uid: String!
+    storedExercise: ExerciseInput!
+  }
 
   type Query {
     getExercises:[Exercise!]
+    getStoredExercises(UserID: getExerciseInput):[ExerciseStore!]
   }
 
   type Mutation {
     createExercise(Exercise: ExerciseInput): Exercise
+    storeExercise(ExerciseStore: StoreExerciseInput): ExerciseStore
   }
 
   schema {
