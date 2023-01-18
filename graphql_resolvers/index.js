@@ -1,72 +1,78 @@
 // const Workout = require("../../mongodb_models/workoutModel")
-const Exercise = require("../mongodb_models/ExerciseModel")
-const StoreExerciseModel = require("../mongodb_models/SavedExerciseModel")
+const Exercise = require("../mongodb_models/ExerciseModel");
+const SavedExerciseModel = require("../mongodb_models/SavedExerciseModel");
+const RetrieveExerciseModel = require("../mongodb_models/RetrieveExerciseModel");
 
 module.exports = {
   getExercises: async () => {
     try {
-      const exercisesFetched = await Exercise.find()
-      return exercisesFetched.map(exercise => {
+      const exercisesFetched = await Exercise.find();
+      return exercisesFetched.map((exercise) => {
         return {
           ...exercise._doc,
           _id: exercise.id,
-        }
-      })
+        };
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   },
 
   createExercise: async (args) => {
     try {
-      const { id, name, description, muscleGroup, imageURL } = args.Exercise
+      const { id, name, description, muscleGroup, imageURL } = args.Exercise;
       const exercise = new Exercise({
         id,
         name,
         description,
         muscleGroup,
-        imageURL
-      })
-      const newExercise = await exercise.save()
-      return { ...newExercise._doc, _id: newExercise.id }
+        imageURL,
+      });
+      const newExercise = await exercise.save();
+      return { ...newExercise._doc, _id: newExercise.id };
     } catch (error) {
-      throw error
+      throw error;
     }
   },
 
   getStoredExercises: async (args) => {
     try {
-      const { uid } = args.UserID
-      const StoredExercisesFetched = await StoreExerciseModel.find({uid: uid})
-      return StoredExercisesFetched.map(exercise => {
+      const { uid } = args.UserID;
+      const StoredExercisesFetched = await SavedExerciseModel.find({
+        uid: uid,
+      });
+      return StoredExercisesFetched.map((exercise) => {
         return {
           ...exercise._doc,
-          _id: exercise.id,
-        }
-      })
+          _id: exercise._id,
+        };
+      });
     } catch (error) {
-      throw error
+      throw error;
     }
   },
 
   storeExercise: async (args) => {
     try {
-      const { uid, storedExercise } = args.ExerciseStore
-      const {id, name, description, muscleGroup, imageURL } = storedExercise
-      const newStoredExercise = new StoreExerciseModel({
+      const { uid, storedExercise } = args.ExerciseStore;
+      const { id, name, description, muscleGroup, imageURL, sets, reps } =
+        storedExercise;
+      const newStoredExercise = new SavedExerciseModel({
         uid,
-        storedExercise: new Exercise({
+        storedExercise: {
           id,
           name,
           description,
           muscleGroup,
-          imageURL
-        })
-      })
-      const save_result = await newStoredExercise.save()
-      return { ...save_result._doc, _id: save_result.id }
+          imageURL,
+          sets,
+          reps,
+        },
+      });
+      const save_result = await newStoredExercise.save();
+      return { ...save_result._doc, _id: save_result.id };
     } catch (error) {
-      throw error
+      throw error;
     }
-  }
-}
+  },
+};

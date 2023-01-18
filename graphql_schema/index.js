@@ -1,4 +1,4 @@
-const { buildSchema } = require("graphql")
+const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
   type Exercise {
@@ -10,12 +10,32 @@ module.exports = buildSchema(`
     imageURL: String!
   }
 
-  input ExerciseInput {
+  input createExerciseInput {
     id: String!
     name: String!
     description: String!
     muscleGroup: String!
     imageURL: String!
+  }
+
+  type ExerciseStoreType {
+    id: String!
+    name: String!
+    description: String!
+    muscleGroup: String!
+    imageURL: String!
+    sets: Int!
+    reps: Int!
+  }
+
+  input SaveExerciseInput {
+    id: String!
+    name: String!
+    description: String!
+    muscleGroup: String!
+    imageURL: String!
+    sets: Int!
+    reps: Int!
   }
   
   input getExerciseInput {
@@ -25,12 +45,12 @@ module.exports = buildSchema(`
   type ExerciseStore {
     _id: ID!
     uid: String!
-    storedExercise: Exercise!
+    storedExercise: ExerciseStoreType!
   }  
 
   input StoreExerciseInput {
     uid: String!
-    storedExercise: ExerciseInput!
+    storedExercise: SaveExerciseInput!
   }
 
   type Query {
@@ -39,7 +59,7 @@ module.exports = buildSchema(`
   }
 
   type Mutation {
-    createExercise(Exercise: ExerciseInput): Exercise
+    createExercise(Exercise: createExerciseInput): Exercise
     storeExercise(ExerciseStore: StoreExerciseInput): ExerciseStore
   }
 
@@ -47,4 +67,4 @@ module.exports = buildSchema(`
     query: Query
     mutation: Mutation
   }
-`)
+`);

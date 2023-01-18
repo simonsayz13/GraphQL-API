@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const SavedExerciseSchema = new Schema({
+const RetrieveExerciseSchema = new Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
   uid: {
     type: String,
     required: true,
@@ -38,4 +42,4 @@ const SavedExerciseSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("saved_exercises", SavedExerciseSchema);
+module.exports = mongoose.model("saveddd_exercises", RetrieveExerciseSchema);
