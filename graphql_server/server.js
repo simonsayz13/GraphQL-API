@@ -2,6 +2,8 @@ const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const exerciseSchema = require("../graphql_schema");
 const gqlResolver = require("../graphql_resolvers/");
+
+const psqlResolver = require("../graphql_postgres_resolvers")
 const mongoose = require("mongoose");
 
 const app = express();
@@ -14,7 +16,7 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema: exerciseSchema,
-    rootValue: gqlResolver,
+    rootValue: psqlResolver,
     graphiql: true,
     pretty: true,
   })

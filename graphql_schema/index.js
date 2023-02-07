@@ -10,6 +10,18 @@ module.exports = buildSchema(`
     imageURL: String!
   }
 
+  type User {
+    uid: String!
+    username: String!
+    firstName: String!
+    lastName: String!
+    height: Float
+    weight: Float
+    createdAt: String
+    updatedAt: String
+    dateOfBirth: String
+  }
+
   input createExerciseInput {
     id: String!
     name: String!
@@ -56,6 +68,7 @@ module.exports = buildSchema(`
   type Query {
     getExercises:[Exercise!]
     getStoredExercises(UserID: getExerciseInput):[ExerciseStore!]
+    getUsers:[User!]
   }
 
   type Mutation {
