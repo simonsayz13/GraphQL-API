@@ -12,6 +12,8 @@ const app = express();
 
 // const uri = process.env.mongodbURI;
 
+const port = process.env.PORT
+
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -27,7 +29,7 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true };
 // mongoose.set("strictQuery", false);
 
 app.listen(
-  8080,
+  port,
   console.log("GraphQL API Server is running on localhost:8080")
 )
 
