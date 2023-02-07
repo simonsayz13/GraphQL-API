@@ -12,7 +12,8 @@ module.exports = {
       if (error) {
         throw error;
       }
-      return results.rows
+      console.log(results.rows)
+      // return results.rows
     });
   },
 };
