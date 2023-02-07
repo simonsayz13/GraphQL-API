@@ -30,7 +30,7 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 app.listen(
   port,
-  console.log("GraphQL API Server is running on localhost:8080")
+  console.log("GraphQL API Server is running on localhost:", port)
 )
 
 
