@@ -42,7 +42,7 @@ mongoose
   .connect(uri, options)
   .then(() =>
     app.listen(
-      8080,
+      port,
       console.log("GraphQL API Server is running on localhost:", port)
     )
   )
