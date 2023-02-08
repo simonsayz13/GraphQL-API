@@ -18,13 +18,25 @@ const schema = buildSchema(`
   type User {
     uid: String!
     username: String!
-    firstname: String!
-    lastname: String!
+    first_name: String!
+    last_name: String!
     height: Float
     weight: Float
-    createdat: Date
-    updatedat: Date
-    dateofbirth: Date
+    created_at: Date
+    updated_at: Date
+    date_of_birth: Date
+  }
+
+  input userInput {
+    uid: String!
+    username: String!
+    first_name: String!
+    last_name: String!
+    height: Float
+    weight: Float
+    created_at: Date
+    updated_at: Date
+    date_of_birth: Date
   }
 
   input createExerciseInput {

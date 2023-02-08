@@ -1,10 +1,10 @@
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql';
-import exerciseSchema from '../graphql_schema/index.js';
-import nsqlResolver from '../graphql_mongodb_resolvers/index.js';
-import psqlResolvers from '../graphql_postgres_resolvers/index.js';
+import mongoDBSchema from '../graphql_schema/mongodb_gql.js';
+import postgresqlSchema from '../graphql_schema/postgresql_gql.js'
+import nsqlResolver from '../graphql_resolvers/mongodb_resolvers.js';
+import psqlResolvers from '../graphql_resolvers/postgresql_resolvers.js';
 import mongoose from 'mongoose';
-
 
 const app = express();
 
@@ -17,7 +17,7 @@ const port = process.env.PORT || 8080
 app.use(
   "/graphql/postgresql",
   graphqlHTTP({
-    schema: exerciseSchema,
+    schema: postgresqlSchema,
     rootValue: psqlResolvers,
     graphiql: true,
     pretty: true,
@@ -27,7 +27,7 @@ app.use(
 app.use(
   "/graphql/nosql",
   graphqlHTTP({
-    schema: exerciseSchema,
+    schema: mongoDBSchema,
     rootValue: nsqlResolver,
     graphiql: true,
     pretty: true,
