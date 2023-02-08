@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema;
 
 const SavedExerciseSchema = new Schema({
@@ -38,4 +39,4 @@ const SavedExerciseSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("saved_exercises", SavedExerciseSchema);
+export default mongoose.model("saved_exercises", SavedExerciseSchema);

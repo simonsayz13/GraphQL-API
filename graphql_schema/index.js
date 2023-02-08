@@ -1,6 +1,11 @@
-const { buildSchema } = require("graphql");
+// const { buildSchema } = require("graphql");
 
-module.exports = buildSchema(`
+import { buildSchema } from "graphql";
+
+const schema = buildSchema(`
+
+  scalar Date
+
   type Exercise {
     _id: ID!
     id: String!
@@ -13,13 +18,13 @@ module.exports = buildSchema(`
   type User {
     uid: String!
     username: String!
-    firstName: String!
-    lastName: String!
+    firstname: String!
+    lastname: String!
     height: Float
     weight: Float
-    createdAt: String
-    updatedAt: String
-    dateOfBirth: String
+    createdat: Date
+    updatedat: Date
+    dateofbirth: Date
   }
 
   input createExerciseInput {
@@ -81,3 +86,5 @@ module.exports = buildSchema(`
     mutation: Mutation
   }
 `);
+
+export default schema;
