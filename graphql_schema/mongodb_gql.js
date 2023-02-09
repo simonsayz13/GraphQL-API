@@ -3,9 +3,6 @@
 import { buildSchema } from "graphql";
 
 const schema = buildSchema(`
-
-  scalar Date
-
   type Exercise {
     _id: ID!
     id: String!
@@ -13,30 +10,6 @@ const schema = buildSchema(`
     description: String!
     muscleGroup: String!
     imageURL: String!
-  }
-
-  type User {
-    uid: String!
-    username: String!
-    first_name: String!
-    last_name: String!
-    height: Float
-    weight: Float
-    created_at: Date
-    updated_at: Date
-    date_of_birth: Date
-  }
-
-  input userInput {
-    uid: String!
-    username: String!
-    first_name: String!
-    last_name: String!
-    height: Float
-    weight: Float
-    created_at: Date
-    updated_at: Date
-    date_of_birth: Date
   }
 
   input createExerciseInput {
@@ -85,7 +58,6 @@ const schema = buildSchema(`
   type Query {
     getExercises:[Exercise!]
     getStoredExercises(UserID: getExerciseInput):[ExerciseStore!]
-    getUsers:[User!]
   }
 
   type Mutation {

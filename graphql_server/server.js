@@ -43,7 +43,7 @@ mongoose
   .then(() =>
     app.listen(
       port,
-      console.log("GraphQL API Server is running on localhost:", port)
+      console.log("GraphQL API Server is running on port:", port)
     )
   )
   .catch((error) => {

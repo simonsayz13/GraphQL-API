@@ -29,8 +29,17 @@ CREATE TABLE exercise (
 );
 
 CREATE TABLE exercise_targets (
-
-)
+  tid SERIAL NOT NULL PRIMARY KEY,
+  eid INT NOT NULL,
+  CONSTRAINT fk_eid
+    FOREIGN KEY(eid)
+      REFERENCES exercise(eid),
+  measurement_type MEASUREMENT_ENUM NOT NULL,
+  reps INT,
+  sets INT,
+  distance INT,
+  duration INT
+);
 
 CREATE TABLE workouts (
 

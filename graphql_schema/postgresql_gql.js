@@ -30,12 +30,21 @@ const schema = buildSchema(`
     date_of_birth: Date
   }
 
+  type addUserResult {
+    status: String!
+  }
+
   type Query {
     getUsers:[User!]
   }
 
+  type Mutation {
+    addUser(User: userInput): addUserResult
+  }
+
   schema {
     query: Query
+    mutation: Mutation
   }
 `);
 
