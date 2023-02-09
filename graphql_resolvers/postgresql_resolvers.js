@@ -2,7 +2,7 @@
 import postgres from "pg";
 import { GraphQLScalarType } from "graphql";
 
-const pool = new Pool();
+const pool = new postgres.Pool();
 
 // For localhost
 // const pool = new postgres.Pool({
