@@ -2,7 +2,7 @@ CREATE TYPE difficulty_enum AS ENUM ('easy', 'medium', 'hard');
 CREATE TYPE muscle_enum AS ENUM ('chest', 'back', 'arms', 'abdominals', 'legs', 'shoulders');
 CREATE TYPE measurement_enum AS ENUM ('distance', 'weight', 'time', 'lapse');
 
-CREATE TABLE Users (
+CREATE TABLE users (
   uid TEXT NOT NULL PRIMARY KEY,
   username TEXT NOT NULL,
   first_name TEXT NOT NULL,
@@ -41,35 +41,51 @@ CREATE TABLE exercise_targets (
   duration INT
 );
 
-CREATE TABLE workouts (
-
-)
-
-CREATE TABLE plans (
-
-)
-
-CREATE TABLE user_progress (
-
-)
-
-CREATE TABLE user_workouts (
-
-)
-
-CREATE TABLE user_plans (
-
-)
+CREATE TABLE user_exercise (
+  ueid SERIAL NOT NULL PRIMARY KEY,
+  uid TEXT NOT NULL,
+  tid INT NOT NULL,
+  reps INT,
+  sets INT,
+  distance INT,
+  duration INT,
+  is_completed BOOLEAN,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  CONSTRAINT fk_uid
+    FOREIGN KEY(uid)
+      REFERENCES users(uid)
+        ON DELETE CASCADE,
+  CONSTRAINT fk_tid
+    FOREIGN KEY(tid)
+      REFERENCES exercise_targets(tid)
+);
 
 CREATE TABLE liked_exercises (
 
-)
+);
+
+CREATE TABLE workouts (
+
+);
+
+CREATE TABLE user_workouts (
+
+);
 
 CREATE TABLE liked_workouts (
 
-)
+);
+
+CREATE TABLE plans (
+
+);
+
+CREATE TABLE user_plans (
+
+);
 
 CREATE TABLE liked_plans (
 
-)
+);
 
