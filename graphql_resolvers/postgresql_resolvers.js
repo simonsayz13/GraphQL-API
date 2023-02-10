@@ -1,14 +1,12 @@
 // const Pool = require("pg").Pool;
 import postgres from "pg";
-import { GraphQLScalarType } from "graphql";
-
-const pool = new postgres.Pool();
+// const pool = new postgres.Pool();
 
 // For localhost
-// const pool = new postgres.Pool({
-//   connectionString:
-//     "postgresql://postgres:MhYLAaxKGrvbT0e45y2m@containers-us-west-154.railway.app:6839/railway",
-// });
+const pool = new postgres.Pool({
+  connectionString:
+    "postgresql://postgres:MhYLAaxKGrvbT0e45y2m@containers-us-west-154.railway.app:6839/railway",
+});
 
 const getUsers = async () => {
   try {
@@ -19,41 +17,28 @@ const getUsers = async () => {
   }
 };
 
-const getTest = async () => {
-  try {
-    const queryResult = await pool.query("SELECT * FROM testdate");
-    console.log(queryResult);
-    return queryResult.rows;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const addUser = async (args) => {
   const { uid, username, first_name, last_name, height, weight } = args.User;
 
   let time = Date.now();
 
   try {
-    const queryResult =
-      await pool.query(`INSERT INTO users (uid, username, first_name, last_name, height, weight, created_at, updated_at) 
-      VALUES (${uid}, '${username}', '${first_name}', '${last_name}', ${height}, ${weight}, to_timestamp(${time} / 1000.0), to_timestamp(${time}/1000.0))`);
-
-    console.log(queryResult);
+    await pool.query(`INSERT INTO users (uid, username, first_name, last_name, height, weight, created_at, updated_at) 
+                      VALUES (${uid}, '${username}', '${first_name}', '${last_name}', ${height}, ${weight}, to_timestamp(${time} / 1000.0), to_timestamp(${time}/1000.0))`);
 
     const queryStatus = {
-      status: "success",
+      status: "Success",
+      message: "New user has been added to database.",
     };
 
     return queryStatus;
   } catch (error) {
     console.log(error);
+    return { status: "Fail", message: error };
   }
 };
 
 export default {
   getUsers,
-  Date,
-  getTest,
   addUser,
 };

@@ -2,7 +2,7 @@
 
 import { buildSchema } from "graphql";
 
-const schema = buildSchema(`
+const userSchema = buildSchema(`
 
   scalar Date
 
@@ -32,6 +32,7 @@ const schema = buildSchema(`
 
   type addUserResult {
     status: String!
+    message: String!
   }
 
   type Query {
@@ -48,4 +49,35 @@ const schema = buildSchema(`
   }
 `);
 
-export default schema;
+const exerciseSchema = buildSchema(`
+
+  scalar Date
+
+  type Exercise {
+    eid: String!
+    alternative_eid: String!
+    name: String!
+    instructions: String!
+    description: String!
+    image: String
+    video_url: String
+    primary_muscle: String
+    secondary_muscle: String
+    updated_at: Date
+    date_of_birth: Date
+  }
+
+  type Query {
+    getExercises:[Exercise!]
+  }
+
+  schema {
+    query: Query
+  }
+  
+`);
+
+export default {
+  userSchema,
+  exerciseSchema
+};
