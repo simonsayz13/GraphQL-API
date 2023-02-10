@@ -1,6 +1,5 @@
-// const { buildSchema } = require("graphql");
-
-import { buildSchema } from "graphql";
+import { buildSchema, } from "graphql";
+import { mergeSchemas } from '@graphql-tools/schema'
 
 const userSchema = buildSchema(`
 
@@ -77,7 +76,9 @@ const exerciseSchema = buildSchema(`
   
 `);
 
-export default {
-  userSchema,
-  exerciseSchema
-};
+export default mergeSchemas({
+  schemas: [
+    userSchema,
+    exerciseSchema,
+  ],
+})
