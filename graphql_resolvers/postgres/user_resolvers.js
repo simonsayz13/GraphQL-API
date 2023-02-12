@@ -24,14 +24,25 @@ const addUser = async (args) => {
 
   try {
     await pool.query(`INSERT INTO users (uid, username, first_name, last_name, height, weight, created_at, updated_at) 
-                      VALUES (${uid}, '${username}', '${first_name}', '${last_name}', ${height}, ${weight}, to_timestamp(${time} / 1000.0), to_timestamp(${time}/1000.0))`);
+                      VALUES ('${uid}', '${username}', '${first_name}', '${last_name}', ${height}, ${weight}, to_timestamp(${time} / 1000.0), to_timestamp(${time}/1000.0))`);
 
-    const queryStatus = {
+    const mutationResult = {
       status: "Success",
       message: "New user has been added to database.",
     };
 
-    return queryStatus;
+    return mutationResult;
+  } catch (error) {
+    console.log(error);
+    return { status: "Fail", message: error };
+  }
+};
+
+const findUser = async (args) => {
+  try {
+    const {uid} = args
+    const queryResult = await pool.query(`SELECT * FROM users WHERE uid='${uid}'`);
+    return queryResult.rows[0];
   } catch (error) {
     console.log(error);
     return { status: "Fail", message: error };
@@ -41,4 +52,5 @@ const addUser = async (args) => {
 export default {
   getUsers,
   addUser,
+  findUser,
 };

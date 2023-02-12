@@ -1,5 +1,5 @@
-import Exercise from "../mongodb_models/ExerciseModel.js";
-import SavedExerciseModel from "../mongodb_models/SavedExerciseModel.js";
+import Exercise from "../../mongodb_models/ExerciseModel.js";
+import SavedExerciseModel from "../../mongodb_models/SavedExerciseModel.js";
 const getExercises = async () => {
   try {
     const exercisesFetched = await Exercise.find();
