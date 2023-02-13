@@ -10,7 +10,7 @@ const exerciseSchema = buildSchema(`
     instruction: String!
     description: String!
     image: String
-    video_url: String
+    equipment: [String]
     primary_muscle: String
     secondary_muscle: String
     updated_at: Date
