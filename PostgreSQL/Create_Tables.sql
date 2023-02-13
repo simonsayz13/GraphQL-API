@@ -17,7 +17,7 @@ CREATE TABLE users (
 CREATE TABLE exercise (
   eid SERIAL NOT NULL PRIMARY KEY,
   alternative_eid TEXT UNIQUE,
-  exericse_name TEXT NOT NULL,
+  exercise_name TEXT NOT NULL,
   instruction TEXT NOT NULL,
   description TEXT NOT NULL,
   image TEXT NOT NULL,

@@ -1,5 +1,4 @@
-import {mergeResolvers} from "@graphql-tools/merge";
-import user_resolvers from "./user_resolvers.js";
-import exercise_resolvers from "./exercise_resolvers.js"
+import { addUser, getUsers, findUser } from "./user_resolvers.js";
+import { addExercise, getExercise } from "./exercise_resolvers.js";
 
-export default mergeResolvers(user_resolvers,exercise_resolvers)
+export default { addUser, getUsers, findUser, addExercise, getExercise };
