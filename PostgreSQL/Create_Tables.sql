@@ -76,7 +76,7 @@ CREATE TABLE workouts (
   updated_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE workouts_liked_exercises (
+CREATE TABLE workouts_exercise_targets (
   wid SERIAL REFERENCES workouts(wid) ON DELETE CASCADE,
   tid INT REFERENCES exercise_targets(tid) ON DELETE CASCADE,
   created_at TIMESTAMP NOT NULL,
