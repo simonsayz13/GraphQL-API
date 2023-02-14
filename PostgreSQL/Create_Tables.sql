@@ -69,7 +69,18 @@ CREATE TABLE liked_exercises (
 );
 
 CREATE TABLE workouts (
+  wid SERIAL PRIMARY KEY,
+  workout_name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL
+);
 
+CREATE TABLE workouts_liked_exercises (
+  wid SERIAL REFERENCES workouts(wid) ON DELETE CASCADE,
+  tid INT REFERENCES exercise_targets(tid) ON DELETE CASCADE,
+  created_at TIMESTAMP NOT NULL,
+  CONSTRAINT workouts_liked_exercises_pkey PRIMARY KEY (wid, tid)
 );
 
 CREATE TABLE user_workouts (
