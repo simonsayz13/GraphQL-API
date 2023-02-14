@@ -62,18 +62,10 @@ CREATE TABLE user_exercise (
 );
 
 CREATE TABLE liked_exercises (
-  id SERIAL NOT NULL PRIMARY KEY,
-  uid TEXT NOT NULL,
-  tid INT NOT NULL,
+  uid TEXT REFERENCES users(uid) ON DELETE CASCADE,
+  tid INT REFERENCES exercise_targets(tid) ON DELETE CASCADE,
   created_at TIMESTAMP NOT NULL,
-  CONSTRAINT fk_uid
-    FOREIGN KEY(uid)
-      REFERENCES users(uid)
-        ON DELETE CASCADE,
-  CONSTRAINT fk_tid
-    FOREIGN KEY(tid)
-      REFERENCES exercise_targets(tid)
-        ON DELETE CASCADE
+  CONSTRAINT liked_exercises_pkey PRIMARY KEY (uid, tid)
 );
 
 CREATE TABLE workouts (
