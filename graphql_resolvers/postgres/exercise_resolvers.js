@@ -1,5 +1,5 @@
 import PostgresConnectionPool from "./connection_pool.js";
-import { toPsqlArrayLiteral, getPsqlColumnNames, getPsqlColumnValues } from "./query_utilities.js";
+import {getPsqlColumnNames, getPsqlColumnValues} from "./query_utilities.js";
 
 const getExercise = async () => {
   try {
@@ -13,42 +13,14 @@ const getExercise = async () => {
 };
 
 const addExercise = async (args) => {
-  const {
-    alternative_eid,
-    exercise_name,
-    instruction,
-    description,
-    image,
-    primary_muscle,
-    secondary_muscle,
-    equipment,
-    difficulty,
-    measurement_type,
-  } = args.Exercise;
-
-  const equipmentArrayLiteral = toPsqlArrayLiteral(equipment);
+  let columnNames = getPsqlColumnNames(args.Exercise);
+  let columnValues = getPsqlColumnValues(args.Exercise);
 
   try {
     await PostgresConnectionPool.query(`
-    INSERT INTO exercise (alternative_eid,
-      exercise_name,
-      instruction,
-      description,
-      image,
-      primary_muscle,
-      secondary_muscle,
-      equipment,
-      difficulty,
-      measurement_type) VALUES ( '${alternative_eid}',
-      '${exercise_name}',
-      '${instruction}',
-      '${description}',
-      '${image}',
-      '${primary_muscle}',
-      '${secondary_muscle}',
-      '${equipmentArrayLiteral}',
-      '${difficulty}',
-      '${measurement_type}'
+      INSERT INTO exercise (${columnNames})
+      VALUES (
+        ${columnValues}
       )
     `);
     return {
@@ -62,13 +34,13 @@ const addExercise = async (args) => {
 
 const addExerciseTarget = async (args) => {
   try {
-    const columnNames = getPsqlColumnNames(args.ExerciseTarget);
-    const ColumnValues = getPsqlColumnValues(args.ExerciseTarget);
+    let columnNames = getPsqlColumnNames(args.ExerciseTarget);
+    let columnValues = getPsqlColumnValues(args.ExerciseTarget);
 
     await PostgresConnectionPool.query(`
       INSERT INTO exercise_targets (${columnNames})
       VALUES (
-        ${ColumnValues}
+        ${columnValues}
       )
     `);
     return {

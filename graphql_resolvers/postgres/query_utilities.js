@@ -17,13 +17,16 @@ function getPsqlColumnNames(args) {
 function getPsqlColumnValues(args) {
   let psqlColumnValuesString = new String("'");
   for (const value in args) {
-    psqlColumnValuesString = psqlColumnValuesString.concat(args[value]+"','")
+    if (Array.isArray(args[value])){
+      psqlColumnValuesString = psqlColumnValuesString.concat(toPsqlArrayLiteral(args[value])+"','")
+    } else {
+      psqlColumnValuesString = psqlColumnValuesString.concat(args[value]+"','")
+    }
   }
   return psqlColumnValuesString.slice(0,-2)
 }
 
 export {
-  toPsqlArrayLiteral,
   getPsqlColumnNames,
   getPsqlColumnValues
 }
