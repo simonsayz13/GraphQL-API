@@ -30,10 +30,7 @@ CREATE TABLE exercise (
 
 CREATE TABLE exercise_targets (
   tid INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  eid INT NOT NULL,
-  CONSTRAINT fk_eid
-    FOREIGN KEY(eid)
-      REFERENCES exercise(eid),
+  eid INT NOT NULL REFERENCES exercise(eid) ON DELETE CASCADE,
   measurement_type MEASUREMENT_ENUM NOT NULL,
   reps INT,
   sets INT,
@@ -42,9 +39,8 @@ CREATE TABLE exercise_targets (
 );
 
 CREATE TABLE user_exercise (
-  ueid INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  uid TEXT NOT NULL,
-  tid INT NOT NULL,
+  uid TEXT REFERENCES users(uid) ON DELETE CASCADE,
+  tid INT REFERENCES exercise_targets(tid) ON DELETE CASCADE,
   reps INT,
   sets INT,
   distance INT,
@@ -52,13 +48,7 @@ CREATE TABLE user_exercise (
   is_completed BOOLEAN,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
-  CONSTRAINT fk_uid
-    FOREIGN KEY(uid)
-      REFERENCES users(uid)
-        ON DELETE CASCADE,
-  CONSTRAINT fk_tid
-    FOREIGN KEY(tid)
-      REFERENCES exercise_targets(tid)
+  CONSTRAINT user_exercise_pkey PRIMARY KEY (uid, tid)
 );
 
 CREATE TABLE liked_exercises (
@@ -72,6 +62,7 @@ CREATE TABLE workouts (
   wid SERIAL PRIMARY KEY,
   workout_name TEXT NOT NULL,
   description TEXT NOT NULL,
+  difficulty DIFFICULTY_ENUM NOT NULL,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL
 );
@@ -84,11 +75,20 @@ CREATE TABLE workouts_exercise_targets (
 );
 
 CREATE TABLE user_workouts (
-
+  wid SERIAL REFERENCES workouts(wid) ON DELETE CASCADE,
+  uid TEXT REFERENCES users(uid) ON DELETE CASCADE,
+  is_completed BOOLEAN NOT NULL DEFAULT FALSE,
+  completed_on TIMESTAMP,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  CONSTRAINT user_workouts_pkey PRIMARY KEY (wid, uid)
 );
 
 CREATE TABLE liked_workouts (
-
+  uid TEXT REFERENCES users(uid) ON DELETE CASCADE,
+  wid INT REFERENCES workouts(wid) ON DELETE CASCADE,
+  created_at TIMESTAMP NOT NULL,
+  CONSTRAINT liked_workouts_pkey PRIMARY KEY (uid, wid)
 );
 
 CREATE TABLE plans (
