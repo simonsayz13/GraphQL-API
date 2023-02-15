@@ -3,7 +3,7 @@ CREATE TYPE muscle_enum AS ENUM ('chest', 'back', 'arms', 'abdominals', 'legs', 
 CREATE TYPE measurement_enum AS ENUM ('distance', 'weight', 'time', 'lapse');
 
 CREATE TABLE users (
-  uid TEXT NOT NULL PRIMARY KEY,
+  uid TEXT PRIMARY KEY,
   username TEXT NOT NULL,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE exercise (
-  eid SERIAL NOT NULL PRIMARY KEY,
+  eid INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   alternative_eid TEXT UNIQUE,
   exercise_name TEXT NOT NULL,
   instruction TEXT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE exercise (
 );
 
 CREATE TABLE exercise_targets (
-  tid SERIAL NOT NULL PRIMARY KEY,
+  tid INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   eid INT NOT NULL,
   CONSTRAINT fk_eid
     FOREIGN KEY(eid)
@@ -42,7 +42,7 @@ CREATE TABLE exercise_targets (
 );
 
 CREATE TABLE user_exercise (
-  ueid SERIAL NOT NULL PRIMARY KEY,
+  ueid INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   uid TEXT NOT NULL,
   tid INT NOT NULL,
   reps INT,

@@ -16,10 +16,23 @@ const exerciseSchema = buildSchema(`
     updated_at: Date
   }
 
-  type Equipment {
-    equipment_name: String!
-    equipment_type: String!
-    equipment_weight: Int
+  type ExerciseTarget {
+    tid: String!
+    eid: String!
+    measurement_type: String
+    reps: Int
+    sets: Int
+    distance: Int
+    duration: Int
+  }
+
+  input ExerciseTargetInput {
+    eid: Int!
+    measurement_type: String
+    reps: Int
+    sets: Int
+    distance: Int
+    duration: Int
   }
 
   input ExerciseInput {
@@ -46,6 +59,7 @@ const exerciseSchema = buildSchema(`
 
   type Mutation {
     addExercise(Exercise: ExerciseInput): addExerciseResult
+    addExerciseTarget(ExerciseTarget: ExerciseTargetInput): addExerciseResult
   }
 
   schema {

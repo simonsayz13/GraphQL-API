@@ -1,8 +1,7 @@
 import PostgresConnectionPool from "./connection_pool.js";
-import { toPsqlArrayLiteral } from "./query_utilities.js";
+import { toPsqlArrayLiteral, getPsqlColumnNames, getPsqlColumnValues } from "./query_utilities.js";
 
 const getExercise = async () => {
-  console.log("get exercise")
   try {
     const queryResult = await PostgresConnectionPool.query(
       `Select * FROM exercise`
@@ -27,10 +26,11 @@ const addExercise = async (args) => {
     measurement_type,
   } = args.Exercise;
 
-  const equipmentArrayLiteral = toPsqlArrayLiteral(equipment)
+  const equipmentArrayLiteral = toPsqlArrayLiteral(equipment);
 
   try {
-    await PostgresConnectionPool.query(`INSERT INTO exercise (alternative_eid,
+    await PostgresConnectionPool.query(`
+    INSERT INTO exercise (alternative_eid,
       exercise_name,
       instruction,
       description,
@@ -49,17 +49,35 @@ const addExercise = async (args) => {
       '${equipmentArrayLiteral}',
       '${difficulty}',
       '${measurement_type}'
-      )`);
-      return {
-        status: "Success",
-        message: "New user has been added to database.",
-      };
+      )
+    `);
+    return {
+      status: "Success",
+      message: "New user has been added to database.",
+    };
   } catch (error) {
     console.log(error);
   }
 };
 
-export {
-  getExercise,
-  addExercise,
+const addExerciseTarget = async (args) => {
+  try {
+    const columnNames = getPsqlColumnNames(args.ExerciseTarget);
+    const ColumnValues = getPsqlColumnValues(args.ExerciseTarget);
+
+    await PostgresConnectionPool.query(`
+      INSERT INTO exercise_targets (${columnNames})
+      VALUES (
+        ${ColumnValues}
+      )
+    `);
+    return {
+      status: "Success",
+      message: "New user has been added to database.",
+    };
+  } catch (err) {
+    console.log(err);
+  }
 };
+
+export { getExercise, addExercise, addExerciseTarget };
