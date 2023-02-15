@@ -1,6 +1,8 @@
 CREATE TYPE difficulty_enum AS ENUM ('easy', 'medium', 'hard');
 CREATE TYPE muscle_enum AS ENUM ('chest', 'back', 'arms', 'abdominals', 'legs', 'shoulders');
 CREATE TYPE measurement_enum AS ENUM ('distance', 'weight', 'time', 'lapse');
+CREATE TYPE active_day_enum AS ENUM ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+CREATE TYPE frequency_enum AS ENUM ('weekly', 'biweekly', 'monthly', 'bimonthly');
 
 CREATE TABLE users (
   uid TEXT PRIMARY KEY,
@@ -92,14 +94,38 @@ CREATE TABLE liked_workouts (
 );
 
 CREATE TABLE plans (
+  pid SERIAL PRIMARY KEY,
+  plan_name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  difficulty DIFFICULTY_ENUM NOT NULL,
+  recommended_freq FREQUENCY_ENUM NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL
+);
 
+CREATE TABLE plans_workouts (
+  pid INT REFERENCES plans(pid) ON DELETE CASCADE,
+  wid SERIAL REFERENCES workouts(wid) ON DELETE CASCADE,
+  active_day ACTIVE_DAY_ENUM NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  CONSTRAINT plans_workouts_pkey PRIMARY KEY (pid, wid)
 );
 
 CREATE TABLE user_plans (
-
+  pid SERIAL REFERENCES plans(pid) ON DELETE CASCADE,
+  uid TEXT REFERENCES users(uid) ON DELETE CASCADE,
+  frequency FREQUENCY_ENUM NOT NULL,
+  is_completed BOOLEAN NOT NULL DEFAULT FALSE,
+  completed_on TIMESTAMP,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  CONSTRAINT user_plans_pkey PRIMARY KEY (pid, uid)
 );
 
 CREATE TABLE liked_plans (
-
+  uid TEXT REFERENCES users(uid) ON DELETE CASCADE,
+  pid INT REFERENCES plans(pid) ON DELETE CASCADE,
+  created_at TIMESTAMP NOT NULL,
+  CONSTRAINT liked_plans_pkey PRIMARY KEY (uid, pid)
 );
 
