@@ -3,7 +3,6 @@ import { graphqlHTTP } from 'express-graphql';
 import mongoDBSchema from '../graphql_schema/mongodb/mongodb_gql.js';
 import postgresSchema from '../graphql_schema/postgres/index.js';
 import nsqlResolver from '../graphql_resolvers/mongodb/mongodb_resolvers.js';
-// import psqlResolvers from '../graphql_resolvers/postgres/user_resolvers.js';
 import postgresResolver from '../graphql_resolvers/postgres/index.js';
 import mongoose from 'mongoose';
 

@@ -1,5 +1,5 @@
 import PostgresConnectionPool from "./connection_pool.js";
-import {getPsqlColumnNames, getPsqlColumnValues} from "./query_utilities.js";
+import { getPsqlColumnNames, getPsqlColumnValues } from "./query_utilities.js";
 
 const getExercise = async () => {
   try {
@@ -25,7 +25,7 @@ const addExercise = async (args) => {
     `);
     return {
       status: "Success",
-      message: "New user has been added to database.",
+      message: "New exercise has been added to database.",
     };
   } catch (error) {
     console.log(error);
@@ -36,7 +36,7 @@ const addExerciseTarget = async (args) => {
   try {
     let columnNames = getPsqlColumnNames(args.ExerciseTarget);
     let columnValues = getPsqlColumnValues(args.ExerciseTarget);
-
+    
     await PostgresConnectionPool.query(`
       INSERT INTO exercise_targets (${columnNames})
       VALUES (
@@ -45,7 +45,7 @@ const addExerciseTarget = async (args) => {
     `);
     return {
       status: "Success",
-      message: "New user has been added to database.",
+      message: "New exercise target has been added to database.",
     };
   } catch (err) {
     console.log(err);

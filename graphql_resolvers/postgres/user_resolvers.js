@@ -1,22 +1,32 @@
-import PostgresConnectionPool from "./connection_pool.js"
+import PostgresConnectionPool from "./connection_pool.js";
+import { getPsqlColumnNames, getPsqlColumnValues } from "./query_utilities.js";
 
 const getUsers = async () => {
   try {
-    const queryResult = await PostgresConnectionPool.query("SELECT * FROM users");
+    const queryResult = await PostgresConnectionPool.query(
+      "SELECT * FROM users"
+    );
     return queryResult.rows;
   } catch (error) {
-    console.log("getUser() Query failed: ", error);
+    console.log("getUser Query failed: ", error);
   }
 };
 
 const addUser = async (args) => {
-  const { uid, username, first_name, last_name, height, weight } = args.User;
+  let columnNames = getPsqlColumnNames(args.User);
+  let columnValues = getPsqlColumnValues(args.User);
 
   let time = Date.now();
 
   try {
-    await PostgresConnectionPool.query(`INSERT INTO users (uid, username, first_name, last_name, height, weight, created_at, updated_at) 
-                      VALUES ('${uid}', '${username}', '${first_name}', '${last_name}', ${height}, ${weight}, to_timestamp(${time} / 1000.0), to_timestamp(${time}/1000.0))`);
+    await PostgresConnectionPool.query(`
+      INSERT INTO users (${columnNames}, created_at, updated_at)
+      VALUES (
+        ${columnValues},
+        to_timestamp(${time} / 1000.0),
+        to_timestamp(${time} / 1000.0)
+      )
+    `);
 
     const mutationResult = {
       status: "Success",
@@ -32,8 +42,10 @@ const addUser = async (args) => {
 
 const findUser = async (args) => {
   try {
-    const {uid} = args
-    const queryResult = await PostgresConnectionPool.query(`SELECT * FROM users WHERE uid='${uid}'`);
+    const { uid } = args;
+    const queryResult = await PostgresConnectionPool.query(
+      `SELECT * FROM users WHERE uid='${uid}'`
+    );
     return queryResult.rows[0];
   } catch (error) {
     console.log(error);
@@ -41,8 +53,4 @@ const findUser = async (args) => {
   }
 };
 
-export {
-  getUsers,
-  addUser,
-  findUser,
-};
+export { getUsers, addUser, findUser };

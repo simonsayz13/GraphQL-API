@@ -4,7 +4,7 @@ const exerciseSchema = buildSchema(`
   scalar Date
 
   type Exercise {
-    eid: String!
+    eid: Int!
     alternative_eid: String!
     exercise_name: String!
     instruction: String!
@@ -17,8 +17,8 @@ const exerciseSchema = buildSchema(`
   }
 
   type ExerciseTarget {
-    tid: String!
-    eid: String!
+    tid: Int!
+    eid: Int!
     measurement_type: String
     reps: Int
     sets: Int

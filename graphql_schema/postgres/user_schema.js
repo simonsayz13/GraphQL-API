@@ -22,8 +22,6 @@ const userSchema = buildSchema(`
     last_name: String!
     height: Float
     weight: Float
-    created_at: Date
-    updated_at: Date
     date_of_birth: Date
   }
 
