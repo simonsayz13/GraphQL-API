@@ -2,6 +2,12 @@ import { buildSchema } from "graphql";
 
 const workoutsSchema = buildSchema(`
 
+  enum difficultyEnum {
+    easy
+    medium
+    hard
+  }
+
   scalar Date
 
   type Workouts {
@@ -15,8 +21,7 @@ const workoutsSchema = buildSchema(`
   input WorkoutsInput {
     workout_name: String!
     description: String!
-    created_at: Date!
-    updated_at: Date!
+    difficulty: difficultyEnum!
   }
 
   type addWorkoutsResult {
@@ -24,13 +29,12 @@ const workoutsSchema = buildSchema(`
     message: String!
   }
 
-
   type Query {
     getWorkouts:[Workouts]
   }
 
   type Mutation {
-    addWorkouts(Workouts: [WorkoutsInput]): addWorkoutsResult
+    addWorkout(Workouts: WorkoutsInput): addWorkoutsResult
   }
 
   schema {
