@@ -35,4 +35,27 @@ const addWorkout = async (args) => {
   }
 };
 
-export {getWorkouts, addWorkout};
+const addExerciseToWorkout = async (args) => {
+    try {
+      let columnNames = getPsqlColumnNames(args.WorkoutLink);
+      let columnValues = getPsqlColumnValues(args.WorkoutLink);
+      let time = Date.now();
+      
+      await PostgresConnectionPool.query(`
+        INSERT INTO workouts_exercise_targets (${columnNames}, created_at)
+        VALUES (
+          ${columnValues},
+          to_timestamp(${time} / 1000.0)
+        )
+      `);
+      return {
+        status: "Success",
+        message: "New Workout Link has been added to database.",
+      };
+    } catch (err) {
+      console.log(err);
+      return { status: "Fail", message: err };
+    }
+  };
+
+export {getWorkouts, addWorkout, addExerciseToWorkout};

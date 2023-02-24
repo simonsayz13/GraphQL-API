@@ -29,12 +29,24 @@ const workoutsSchema = buildSchema(`
     message: String!
   }
 
+  input WorkoutLink {
+    wid: Int!
+    tid: Int!
+    created_at: Date
+  }
+
+  input WorkoutLinkInput {
+    wid: Int!
+    tid: Int!
+  }
+
   type Query {
     getWorkouts:[Workouts]
   }
 
   type Mutation {
     addWorkout(Workouts: WorkoutsInput): addWorkoutsResult
+    addExerciseToWorkout(WorkoutLink: WorkoutLinkInput): addWorkoutsResult
   }
 
   schema {
