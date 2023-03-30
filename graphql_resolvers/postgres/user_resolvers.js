@@ -15,7 +15,7 @@ const getUsers = async () => {
 const addUser = async (args) => {
   let columnNames = getPsqlColumnNames(args.User);
   let columnValues = getPsqlColumnValues(args.User);
-
+  console.log("add user")
   let time = Date.now();
 
   try {

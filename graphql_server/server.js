@@ -5,10 +5,11 @@ import postgresSchema from '../graphql_schema/postgres/index.js';
 import nsqlResolver from '../graphql_resolvers/mongodb/mongodb_resolvers.js';
 import postgresResolver from '../graphql_resolvers/postgres/index.js';
 import mongoose from 'mongoose';
+import { config } from 'dotenv';
+
+config();
 
 const app = express();
-
-// export mongodbURI='mongodb+srv://admin:Changeme_123@db1.5y8jmgl.mongodb.net/fitness?retryWrites=true&w=majority'
 
 const uri = process.env.mongodbURI;
 

@@ -1,5 +1,3 @@
-// const { buildSchema } = require("graphql");
-
 import { buildSchema } from "graphql";
 
 const schema = buildSchema(`
